@@ -10,8 +10,10 @@ public class LinkedList implements List {
 	
 	public LinkedList() {
 		
-		this.sentinel = new Element(sentinel,sentinel,null);
+		this.sentinel = new Element(null,null,null);
 		this.size = 0;
+		this.sentinel.prev = this.sentinel;
+		this.sentinel.next = this.sentinel;
 	}
 	
 	
@@ -71,17 +73,22 @@ public class LinkedList implements List {
 	
 	public Object getValueAt(int index) {
 		
-		//TODO exception
+		Object ret = null;
 		
-		int i = 0;
-		goToHead();
-		
-		while(i!=index) {
-			this.current = this.current.next;
-			i++;
+		if(index >= this.size || index < 0) {
+			throw new ArrayIndexOutOfBoundsException("L'index doit être compris entre 0 et la taille -1 de la liste !");
+		}else {
+			int i = 0;
+			goToHead();
+			
+			while(i!=index) {
+				this.current = this.current.next;
+				i++;
+			}
+			ret = this.current.theValue;
 		}
 		
-		return this.current.theValue;
+		return ret;
 	}
 	
 	
@@ -113,11 +120,15 @@ public class LinkedList implements List {
 	
 	@Override
 	public void insert(Object data) {
-		// TODO exception
-		goToEnd();
-		Element nouv = new Element(this.current,this.sentinel,data);
-		this.size++;
-		this.current.next = nouv;
+		if(data == null) {
+			throw new NullPointerException("L'objet indiqué est null");
+		}else {
+			goToEnd();
+			Element nouv = new Element(this.current,this.sentinel,data);
+			this.size++;
+			this.current.next = nouv;
+			this.current = nouv;
+		}
 
 	}
 
@@ -139,33 +150,45 @@ public class LinkedList implements List {
 
 	@Override
 	public boolean contains(Object data) {
-		//TODO exception
-		goToHead();
 		boolean ret = false;
-		int i =0;
 		
-		while(!ret && i<this.size) {
-			if(this.current.theValue == data) {
-				ret = true;
+		if(data == null) {
+			throw new NullPointerException("L'objet indiqué est null");
+		}else {
+			goToHead();
+			
+			int i =0;
+			
+			while(!ret && i<this.size) {
+				if(this.current.theValue == data) {
+					ret = true;
+				}
+				this.current = this.current.next;
+				i++;
 			}
-			this.current = this.current.next;
-			i++;
 		}
 		return ret;
 	}
 
 	@Override
 	public void add(int index, Object data) {
-		// TODO exception
-		goToHead();
-		for(int i =0; i<=index; i++) {
-			this.current = this.current.next;
+		
+		if(index >= this.size || index < 0) {
+			throw new ArrayIndexOutOfBoundsException("L'index doit être compris entre 0 et la taille -1 de la liste !");
+		}else if(data == null){
+			throw new NullPointerException("L'objet indiqué est null");
+		}else {
+			goToHead();
+			for(int i =0; i<=index; i++) {
+				this.current = this.current.next;
+			}
+			
+			Element nouv = new Element(this.current.prev,this.current,data);
+			this.size++;
+			this.current.prev = nouv;
+			this.current.prev.next = nouv;
 		}
 		
-		Element nouv = new Element(this.current.prev,this.current,data);
-		this.size++;
-		this.current.prev = nouv;
-		this.current.prev.next = nouv;
 	}
 
 	@Override
@@ -176,9 +199,11 @@ public class LinkedList implements List {
 
 	@Override
 	public void setValue(Object newData) {
-		// TODO exception
-		
-		this.current.theValue = newData;
+		if(newData == null) {
+			throw new NullPointerException("L'objet indiqué est null");
+		}else {
+			this.current.theValue = newData;
+		}
 	}
 
 	@Override

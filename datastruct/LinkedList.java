@@ -14,18 +14,21 @@ public class LinkedList implements List {
 		this.size = 0;
 		this.sentinel.prev = this.sentinel;
 		this.sentinel.next = this.sentinel;
+		assert(this.invariant()):"Invariant violé !";
 	}
 	
 	
 	public void goToHead() {
 		
 		this.current = this.sentinel.next;
+		assert(this.invariant()):"Invariant violé !";
 	}
 
 	
 	public void goToEnd() {
 		
 		this.current = this.sentinel.prev;
+		assert(this.invariant()):"Invariant violé !";
 	}
 	
 	
@@ -39,6 +42,7 @@ public class LinkedList implements List {
 			ret = false;
 		}
 		
+		assert(this.invariant()):"Invariant violé !";
 		return ret;
 	}
 	
@@ -54,6 +58,7 @@ public class LinkedList implements List {
 			ret = false;
 		}
 		
+		assert(this.invariant()):"Invariant violé !";
 		return ret;
 	}
 	
@@ -63,8 +68,10 @@ public class LinkedList implements List {
 		String retu = null;
 		
 		goToHead();
+		int i=0;
 		while(this.current != this.sentinel) {
-			retu += this.current.theValue.toString();
+			retu += i+":"+this.current.theValue.toString();
+			i++;
 		}
 		
 		return retu;
@@ -88,6 +95,7 @@ public class LinkedList implements List {
 			ret = this.current.theValue;
 		}
 		
+		assert(this.invariant()):"Invariant violé !";
 		return ret;
 	}
 	
@@ -129,7 +137,8 @@ public class LinkedList implements List {
 			this.current.next = nouv;
 			this.current = nouv;
 		}
-
+		
+		assert(this.invariant()):"Invariant violé !";
 	}
 
 	@Override
@@ -145,6 +154,8 @@ public class LinkedList implements List {
 			this.current = this.current.next;
 		}
 		this.size--;
+		
+		assert(this.invariant()):"Invariant violé !";
 		return true;
 	}
 
@@ -167,6 +178,8 @@ public class LinkedList implements List {
 				i++;
 			}
 		}
+		
+		assert(this.invariant()):"Invariant violé !";
 		return ret;
 	}
 
@@ -188,7 +201,7 @@ public class LinkedList implements List {
 			this.current.prev = nouv;
 			this.current.prev.next = nouv;
 		}
-		
+		assert(this.invariant()):"Invariant violé !";
 	}
 
 	@Override
@@ -204,6 +217,7 @@ public class LinkedList implements List {
 		}else {
 			this.current.theValue = newData;
 		}
+		assert(this.invariant()):"Invariant violé !";
 	}
 
 	@Override
@@ -222,6 +236,26 @@ public class LinkedList implements List {
 		return this.size;
 	}
 
+	
+	private boolean invariant() {
+		boolean ret = true;
+		
+		if(this.sentinel == null) {
+			ret = false;
+			System.err.println("Le sentinel est null");
+		}
+		
+		if(this.current == null) {
+			ret = false;
+			System.err.println("Le current est null");
+		}
+		
+		if(this.size < 0) {
+			ret = false;
+			System.err.println("La taille du tableau est négative");
+		}
+		return ret;
+	}
 
 	private class Element{
 	
@@ -233,7 +267,6 @@ public class LinkedList implements List {
 	
 		Element(Element prev, Element next, Object data){
 		
-			//TODO exception
 			this.prev = prev;
 			this.next = next;
 			this.theValue = data;

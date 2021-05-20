@@ -8,16 +8,23 @@ public class LinkedList implements List {
 	
 	private int size;  // nombre d'élément dans la liste
 	
+	/**
+	 * constructor of LinkedList
+	 */
 	public LinkedList() {
 		
 		this.sentinel = new Element(null,null,null);
 		this.size = 0;
 		this.sentinel.prev = this.sentinel;
 		this.sentinel.next = this.sentinel;
+		this.current = this.sentinel;
 		assert(this.invariant()):"Invariant violé !";
 	}
 	
 	
+	/**
+	 * current Element goes to the top of the list
+	 */
 	public void goToHead() {
 		
 		this.current = this.sentinel.next;
@@ -25,6 +32,9 @@ public class LinkedList implements List {
 	}
 
 	
+	/**
+	 * current Element goes to the last Element
+	 */
 	public void goToEnd() {
 		
 		this.current = this.sentinel.prev;
@@ -32,6 +42,10 @@ public class LinkedList implements List {
 	}
 	
 	
+	/**
+	 * current Element goes to the next Element if he can
+	 * @return boolean true if he can, false if not
+	 */
 	public boolean next() {
 		boolean ret;
 		
@@ -47,6 +61,10 @@ public class LinkedList implements List {
 	}
 	
 	
+	/**
+	 * current Element goes to the previous Element if he can
+	 * @return boolean true if he can, false if not
+	 */
 	public boolean previous() {
 		
 		boolean ret;
@@ -63,6 +81,10 @@ public class LinkedList implements List {
 	}
 	
 	
+	/**
+	 * return a string to know what is inside of the list
+	 * pattern : number on the list : data inside the object
+	 */
 	public String toString() {
 		
 		String retu = null;
@@ -71,6 +93,7 @@ public class LinkedList implements List {
 		int i=0;
 		while(this.current != this.sentinel) {
 			retu += i+":"+this.current.theValue.toString();
+			this.current = this.current.next;
 			i++;
 		}
 		
@@ -78,6 +101,11 @@ public class LinkedList implements List {
 	}
 	
 	
+	/**
+	 * getter of the value on the list with an index
+	 * @param index, number in the list
+	 * @return the data
+	 */
 	public Object getValueAt(int index) {
 		
 		Object ret = null;
@@ -100,6 +128,10 @@ public class LinkedList implements List {
 	}
 	
 	
+	/**
+	 * to know if the Element has a previous Element
+	 * @return boolean true if he has, false if not
+	 */
 	public boolean hasPrevious() {
 		
 		boolean ret;
@@ -113,6 +145,10 @@ public class LinkedList implements List {
 	}
 	
 	
+	/**
+	 * to know if the Element has a next Element
+	 * @return boolean true if he has, false if not
+	 */
 	public boolean hasNext() {
 		
 		boolean ret;
@@ -126,6 +162,10 @@ public class LinkedList implements List {
 	}
 	
 	
+	/**
+	 * insert an Element on the list
+	 * @param data an Object
+	 */
 	@Override
 	public void insert(Object data) {
 		if(data == null) {
@@ -135,12 +175,18 @@ public class LinkedList implements List {
 			Element nouv = new Element(this.current,this.sentinel,data);
 			this.size++;
 			this.current.next = nouv;
+			this.sentinel.prev = nouv;
 			this.current = nouv;
 		}
-		
+		 
 		assert(this.invariant()):"Invariant violé !";
 	}
 
+	
+	/**
+	 * delete the current Element
+	 * @return boolean to know if it goes wrong or not
+	 */
 	@Override
 	public boolean delete() {
 		
@@ -159,6 +205,12 @@ public class LinkedList implements List {
 		return true;
 	}
 
+	
+	/**
+	 * know if an object in on the list
+	 * @param data the Object that we want to know if it's inside the list or not
+	 * @return boolean true if he contains, false if not
+	 */
 	@Override
 	public boolean contains(Object data) {
 		boolean ret = false;
@@ -182,7 +234,13 @@ public class LinkedList implements List {
 		assert(this.invariant()):"Invariant violé !";
 		return ret;
 	}
-
+	
+	
+	/**
+	 * add a Object on the index
+	 * @param index integer of the place of the new Object
+	 * @param data the new Object
+	 */
 	@Override
 	public void add(int index, Object data) {
 		
@@ -204,12 +262,22 @@ public class LinkedList implements List {
 		assert(this.invariant()):"Invariant violé !";
 	}
 
+	
+	/**
+	 * get the value of the current Element
+	 * @return Object
+	 */
 	@Override
 	public Object getValue() {
 		
 		return this.current.theValue;
 	}
 
+	
+	/**
+	 * set the value of the current Element
+	 * @param newData the new Object
+	 */
 	@Override
 	public void setValue(Object newData) {
 		if(newData == null) {
@@ -220,6 +288,11 @@ public class LinkedList implements List {
 		assert(this.invariant()):"Invariant violé !";
 	}
 
+		
+	/**
+	 * know if the list is empty or not
+	 * @return boolean true if empty, false if not
+	 */
 	@Override
 	public boolean isEmpty() {
 		boolean ret= false;
@@ -231,12 +304,20 @@ public class LinkedList implements List {
 		return ret;
 	}
 
-	@Override
+	
+	/**
+	 * getter of the size of the list
+	 * @return int, the size of the list
+	 */
 	public int getSize() {
 		return this.size;
 	}
 
 	
+	/**
+	 * test of the attribute
+	 * @return boolean if all goes well or not
+	 */
 	private boolean invariant() {
 		boolean ret = true;
 		
@@ -256,7 +337,11 @@ public class LinkedList implements List {
 		}
 		return ret;
 	}
-
+	
+	/**
+	 * inside class of Element of the list
+	 * @author perzival
+	 */
 	private class Element{
 	
 		Element prev;  // Connexion à l'élément précédent de la liste
@@ -264,7 +349,14 @@ public class LinkedList implements List {
 		Element next;  // Connexion à l'élément suivant de la liste
 	
 		Object theValue;  // Donnée stockée
+		
 	
+		/**
+		 * constructor of Element
+		 * @param prev
+		 * @param next
+		 * @param data
+		 */
 		Element(Element prev, Element next, Object data){
 		
 			this.prev = prev;

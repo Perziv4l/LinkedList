@@ -87,12 +87,12 @@ public class LinkedList implements List {
 	 */
 	public String toString() {
 		
-		String retu = null;
+		String retu = "";
 		
 		goToHead();
 		int i=0;
 		while(this.current != this.sentinel) {
-			retu += i+":"+this.current.theValue.toString();
+			retu += "\n"+i+":"+this.current.theValue.toString();
 			this.current = this.current.next;
 			i++;
 		}
@@ -253,7 +253,6 @@ public class LinkedList implements List {
 			for(int i =0; i<=index; i++) {
 				this.current = this.current.next;
 			}
-			
 			Element nouv = new Element(this.current.prev,this.current,data);
 			this.size++;
 			this.current.prev = nouv;

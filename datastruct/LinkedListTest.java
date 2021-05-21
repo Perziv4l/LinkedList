@@ -91,8 +91,7 @@ class LinkedListTest {
 		String nouveau2 = new String("Je suis le 2eme");
 		test2.insert(nouveau);
 		test2.insert(nouveau2);
-		System.out.println(test2.toString());
-		if(test2.toString().equals("Je suis le 1er\nJe suis le 2eme")) {
+		if(test2.toString().equals("\n0:Je suis le 1er\n1:Je suis le 2eme")) {
 			System.out.println("Test Ok");
 		}else {
 			System.out.println("Test Non OK");
@@ -101,17 +100,49 @@ class LinkedListTest {
 
 	@Test
 	void testGetValueAt() {
-		fail("Not yet implemented");
+		System.out.println("Test Get Value At");
+		LinkedList test2 = new LinkedList();
+		String nouveau = new String("Je suis le 1er");
+		String nouveau2 = new String("Je suis le 2eme");
+		test2.insert(nouveau);
+		test2.insert(nouveau2);
+		if(test2.getValueAt(1).toString().equals("Je suis le 2eme")) {
+			System.out.println("Test Ok");
+		}else {
+			System.out.println("Test Non OK");
+		}
 	}
 
 	@Test
 	void testHasPrevious() {
-		fail("Not yet implemented");
+		System.out.println("Test Has Previous");
+		LinkedList test2 = new LinkedList();
+		String nouveau = new String("Je suis le 1er");
+		String nouveau2 = new String("Je suis le 2eme");
+		test2.insert(nouveau);
+		test2.insert(nouveau2);
+		test2.goToEnd();
+		if(test2.hasPrevious()) {
+			System.out.println("Test Ok");
+		}else {
+			System.out.println("Test Non OK");
+		}
 	}
 
 	@Test
 	void testHasNext() {
-		fail("Not yet implemented");
+		System.out.println("Test Has Next");
+		LinkedList test2 = new LinkedList();
+		String nouveau = new String("Je suis le 1er");
+		String nouveau2 = new String("Je suis le 2eme");
+		test2.insert(nouveau);
+		test2.insert(nouveau2);
+		test2.goToHead();
+		if(test2.hasNext()) {
+			System.out.println("Test Ok");
+		}else {
+			System.out.println("Test Non OK");
+		}
 	}
 
 	@Test
@@ -143,32 +174,88 @@ class LinkedListTest {
 
 	@Test
 	void testContains() {
-		fail("Not yet implemented");
+		System.out.println("Test Contains");
+		LinkedList test2 = new LinkedList();
+		String nouveau = new String("Je suis le 1er");
+		test2.insert(nouveau);
+		if(test2.contains(nouveau)) {
+			System.out.println("Test Ok");
+		}else {
+			System.out.println("Test Non Ok");
+		}
 	}
 
 	@Test
 	void testAdd() {
-		fail("Not yet implemented");
+		System.out.println("Test Add");
+		LinkedList test2 = new LinkedList();
+		String nouveau = new String("Je suis le 1er");
+		String nouveau2 = new String("Je suis le 2eme");
+		test2.insert(nouveau);
+		test2.add(0,nouveau2);
+		test2.goToHead();
+		if(test2.getValue().toString().equals("Je suis le 2eme")) {
+			System.out.println("Test Ok");
+		}else {
+			System.out.println("Test Non OK");
+		}
 	}
 
 	@Test
 	void testGetValue() {
-		fail("Not yet implemented");
+		System.out.println("Test Get Value");
+		LinkedList test2 = new LinkedList();
+		String nouveau = new String("Je suis le 1er");
+		String nouveau2 = new String("Je suis le 2eme");
+		test2.insert(nouveau);
+		test2.insert(nouveau2);
+		if(test2.getValue().equals("Je suis le 2eme")) {
+			System.out.println("Test Ok");
+		}else {
+			System.out.println("Test Non OK");
+		}
 	}
 
 	@Test
 	void testSetValue() {
-		fail("Not yet implemented");
+		System.out.println("Test Set Value");
+		LinkedList test2 = new LinkedList();
+		String nouveau = new String("Je suis le 1er");
+		String nouveau2 = new String("Je suis le 2eme");
+		test2.insert(nouveau);
+		test2.insert(nouveau2);
+		test2.setValue(nouveau);
+		if(test2.getValue().equals("Je suis le 1er")) {
+			System.out.println("Test Ok");
+		}else {
+			System.out.println("Test Non OK");
+		}
 	}
 
 	@Test
 	void testIsEmpty() {
-		fail("Not yet implemented");
+		System.out.println("Test Empty");
+		LinkedList test2 = new LinkedList();
+		if(test2.isEmpty()) {
+			System.out.println("Test Ok");
+		}else {
+			System.out.println("Test Non OK");
+		}
 	}
 
 	@Test
 	void testGetSize() {
-		fail("Not yet implemented");
+		System.out.println("Test Get Size");
+		LinkedList test2 = new LinkedList();
+		String nouveau = new String("Je suis le 1er");
+		String nouveau2 = new String("Je suis le 2eme");
+		test2.insert(nouveau);
+		test2.insert(nouveau2);
+		if(test2.getSize()==2) {
+			System.out.println("Test Ok");
+		}else {
+			System.out.println("Test Non OK");
+		}
 	}
 
 }
